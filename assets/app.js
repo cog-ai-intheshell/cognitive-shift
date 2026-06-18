@@ -45,7 +45,7 @@
           return haystack.includes(query);
         });
 
-        renderSections(sectionsEl, categories, filtered);
+        renderSections(sectionsEl, categories, filtered, { showEmptyCategories: !query });
         emptyEl.hidden = filtered.length !== 0;
         if (searchClear) searchClear.hidden = query.length === 0;
       };
@@ -64,12 +64,12 @@
     }
   }
 
-  function renderSections(container, categories, articles) {
+  function renderSections(container, categories, articles, { showEmptyCategories = false } = {}) {
     container.innerHTML = "";
 
     categories.forEach((category) => {
       const categoryArticles = articles.filter((article) => article.category === category.slug);
-      if (categoryArticles.length === 0) return;
+      if (categoryArticles.length === 0 && !showEmptyCategories) return;
 
       const section = document.createElement("section");
       section.className = "category-section";
@@ -78,9 +78,11 @@
           <h2>${escapeHtml(category.name)}</h2>
           ${category.description ? `<p>${escapeHtml(category.description)}</p>` : ""}
         </header>
-        <div class="article-grid">
-          ${categoryArticles.map(renderArticleCard).join("")}
-        </div>
+        ${categoryArticles.length > 0 ? `
+          <div class="article-grid">
+            ${categoryArticles.map(renderArticleCard).join("")}
+          </div>
+        ` : ""}
       `;
       container.appendChild(section);
     });

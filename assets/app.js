@@ -142,7 +142,7 @@
   function renderArticleDetail(article) {
     const coverPath = article.coverPreviewPath || article.coverPath;
     return `
-      <article class="article-layout">
+      <article class="article-layout" data-article-type="${escapeAttribute(article.type)}">
         <div class="article-media">
           ${renderViewer(article)}
         </div>

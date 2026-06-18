@@ -237,6 +237,9 @@ function upsertArticle(sourceDirArg, slugArg, { dryRun }) {
   }
 
   fs.mkdirSync(destination, { recursive: true });
+  if (path.resolve(sourceDir) !== path.resolve(destination)) {
+    removeManagedArticleAssets(destination);
+  }
   fs.copyFileSync(contentFile, contentDestination);
   fs.copyFileSync(coverFile, coverDestination);
   fs.writeFileSync(metadataDestination, `${JSON.stringify(metadata, null, 2)}\n`);
@@ -407,6 +410,20 @@ function findPdfToPpm() {
 function findCommand(name) {
   const found = spawnSync("command", ["-v", name], { shell: true, encoding: "utf8" });
   return found.stdout && found.stdout.trim() ? found.stdout.trim() : null;
+}
+
+function removeManagedArticleAssets(directory) {
+  if (!fs.existsSync(directory)) return;
+
+  fs.readdirSync(directory)
+    .filter((name) => !name.startsWith("."))
+    .filter((name) => {
+      const baseName = path.basename(name, path.extname(name));
+      return baseName === "content" || baseName === "cover" || name === "cover-preview.png";
+    })
+    .forEach((name) => {
+      fs.rmSync(path.join(directory, name), { force: true });
+    });
 }
 
 function resolveCategoryJson(slug, jsonArg, allowExistingTarget) {

@@ -127,7 +127,7 @@
       document.title = `${article.name} - Cognitive Shift`;
       target.innerHTML = renderArticleDetail(article);
 
-      if (article.type === "readme") {
+      if (article.type === "md") {
         const markdownTarget = target.querySelector("[data-markdown-target]");
         const response = await fetch(article.contentPath, { cache: "no-store" });
         markdownTarget.innerHTML = response.ok
@@ -166,7 +166,7 @@
       `;
     }
 
-    if (article.type === "readme") {
+    if (article.type === "md") {
       return '<div class="markdown-preview" data-markdown-target><p>Loading markdown...</p></div>';
     }
 

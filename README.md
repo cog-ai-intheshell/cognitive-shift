@@ -93,7 +93,7 @@ Champs:
 
 | Champ | Obligatoire | Maximum | Notes |
 | --- | --- | ---: | --- |
-| `type` | oui | 12 caracteres | `pdf`, `readme`, `file` ou `other` |
+| `type` | oui | 12 caracteres | `pdf`, `md`, `file` ou `other` |
 | `category` | oui | 40 caracteres | slug d'une categorie existante |
 | `name` | oui | 18 caracteres | titre affiche sur la page article |
 | `shortDescription` | oui | 42 caracteres | texte court sous la cover sur l'accueil |

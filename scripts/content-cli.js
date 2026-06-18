@@ -9,7 +9,7 @@ const contentRoot = path.join(root, "content");
 const articleRoot = path.join(contentRoot, "articles");
 const categoryRoot = path.join(contentRoot, "categories");
 const dataRoot = path.join(root, "data");
-const validTypes = new Set(["pdf", "readme", "file", "other"]);
+const validTypes = new Set(["pdf", "md", "file", "other"]);
 const limits = {
   article: {
     type: 12,

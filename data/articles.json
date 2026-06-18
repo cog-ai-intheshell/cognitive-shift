@@ -30,8 +30,8 @@
       "skill"
     ],
     "contentPath": "content/articles/article-2/content.pdf",
-    "coverPath": "content/articles/article-2/cover.pdf",
-    "coverPreviewPath": "content/articles/article-2/cover-preview.png"
+    "coverPath": "content/articles/article-2/cover.png",
+    "coverPreviewPath": "content/articles/article-2/cover.png"
   },
   {
     "slug": "article-3",

@@ -600,7 +600,14 @@ body[data-page="manifest"] .page-nav {
     grid-template-columns: 1fr;
   }
 
+  body[data-page="article"] .article-media {
+    order: 2;
+  }
+
   body[data-page="article"] .article-sidebar {
+    display: flex;
+    flex-direction: column;
+    order: 1;
     padding-top: 0;
   }
 
@@ -722,16 +729,6 @@ body[data-page="manifest"] .page-nav {
   .article-cover-link {
     height: auto;
     aspect-ratio: 350 / 197;
-  }
-
-  body[data-page="article"] .article-media {
-    order: 2;
-  }
-
-  body[data-page="article"] .article-sidebar {
-    display: flex;
-    flex-direction: column;
-    order: 1;
   }
 
   .manifest-teaser {

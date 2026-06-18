@@ -1,6 +1,6 @@
 # Cognitive Shift
 
-Site statique pour publier des articles/documents avec une page d'accueil, une page article, une page Manifest et un CLI de publication.
+Site statique pour publier des articles/documents avec une page d'accueil (`home.html`), une page article, une page Manifest et un CLI de publication.
 
 Production: https://cognitiveshift.vercel.app
 

@@ -22,7 +22,7 @@ const types = {
 const server = http.createServer((request, response) => {
   const requestUrl = new URL(request.url, `http://${request.headers.host}`);
   const cleanPath = decodeURIComponent(requestUrl.pathname).replace(/^\/+/, "");
-  const relativePath = cleanPath || "index.html";
+  const relativePath = cleanPath || "home.html";
   const filePath = path.resolve(root, relativePath);
 
   if (!filePath.startsWith(root)) {

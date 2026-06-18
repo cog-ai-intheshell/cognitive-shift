@@ -2,6 +2,8 @@
 
 Site statique pour publier des articles/documents avec une page d'accueil, une page article, une page Manifest et un CLI de publication.
 
+Production: https://cognitiveshift.vercel.app
+
 ## Installation locale du CLI
 
 Depuis la racine du projet:

@@ -34,6 +34,23 @@
     "coverPreviewPath": "content/articles/article-2/cover-preview.png"
   },
   {
+    "slug": "article-3",
+    "type": "pdf",
+    "category": "agentic",
+    "name": "Language Model",
+    "shortDescription": "Skill optimization process",
+    "description": "Lean Design reduces every application to its core value moment: the screen that creates understanding, the action that validates the use case, and the metric that determines what happens next. Less unnecessary surface area, faster learning cycles.",
+    "keywords": [
+      "agentic",
+      "llm",
+      "security",
+      "skill"
+    ],
+    "contentPath": "content/articles/article-3/content.pdf",
+    "coverPath": "content/articles/article-3/cover.pdf",
+    "coverPreviewPath": "content/articles/article-3/cover-preview.png"
+  },
+  {
     "slug": "skill-1",
     "type": "md",
     "category": "skills-library",

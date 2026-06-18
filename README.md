@@ -4,6 +4,8 @@ Site statique pour publier des articles/documents avec une page d'accueil (`home
 
 Production: https://cognitiveshift.vercel.app
 
+Figma: [Cognitive shift website](https://www.figma.com/design/zM6WaLxg5vJlJdGf6qc213/Cognitive-shift-website?node-id=0-1&t=O8KGVyqAvmdCj8KE-1)
+
 ## Installation locale du CLI
 
 Depuis la racine du projet:

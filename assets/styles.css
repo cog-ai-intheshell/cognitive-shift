@@ -735,8 +735,9 @@ body[data-page="manifest"] .page-nav {
     margin-bottom: 90px;
   }
 
-  .viewer-frame {
-    min-height: 360px;
+  body[data-page="article"] .viewer-frame {
+    height: clamp(390px, 56vh, 470px);
+    min-height: 0;
   }
 
   .article-sidebar h1 {

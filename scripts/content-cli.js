@@ -10,6 +10,7 @@ const articleRoot = path.join(contentRoot, "articles");
 const categoryRoot = path.join(contentRoot, "categories");
 const dataRoot = path.join(root, "data");
 const validTypes = new Set(["pdf", "md", "file", "other"]);
+const productionAlias = process.env.COGNITIVE_SHIFT_DOMAIN || "cognitiveshift.vercel.app";
 const limits = {
   article: {
     type: 12,
@@ -470,7 +471,29 @@ function maybeVercel(options) {
     throw new Error("Vercel deploy requested, but the Vercel CLI was not found. Install it with `npm i -g vercel`, or re-run with --no-vercel.");
   }
 
-  execFileSync(vercel, ["--prod", "--yes"], { stdio: "inherit" });
+  const deploy = spawnSync(vercel, ["--prod", "--yes", "--no-color"], { encoding: "utf8" });
+  if (deploy.stdout) process.stdout.write(deploy.stdout);
+  if (deploy.stderr) process.stderr.write(deploy.stderr);
+  if (deploy.error) throw deploy.error;
+  if (deploy.status !== 0) {
+    throw new Error(`Vercel deploy failed with exit code ${deploy.status}.`);
+  }
+
+  const deploymentUrl = extractProductionDeploymentUrl(deploy.stdout || "");
+  if (!deploymentUrl) {
+    console.warn(`Could not find the production deployment URL in Vercel output. Alias ${productionAlias} was not updated.`);
+    return;
+  }
+
+  execFileSync(vercel, ["alias", "set", deploymentUrl, productionAlias], { stdio: "inherit" });
+}
+
+function extractProductionDeploymentUrl(output) {
+  const productionMatch = output.match(/Production\s+(https?:\/\/[^\s]+)/);
+  if (productionMatch) return productionMatch[1];
+
+  const fallbackMatch = output.match(/https?:\/\/[^\s]+\.vercel\.app/);
+  return fallbackMatch ? fallbackMatch[0] : null;
 }
 
 function ensureGitReady() {

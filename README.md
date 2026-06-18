@@ -24,6 +24,13 @@ Chaque commande reconstruit `data/articles.json` et `data/categories.json`, puis
 2. `git commit`
 3. `git push`
 4. `vercel --prod --yes`
+5. `vercel alias set <deployment-url> cognitiveshift.vercel.app`
+
+Le domaine de production utilise `cognitiveshift.vercel.app` par defaut. Pour publier vers un autre alias:
+
+```bash
+COGNITIVE_SHIFT_DOMAIN=autre-domaine.vercel.app cognitiveshift -- update-general
+```
 
 ```bash
 # Cmd 1: ajouter un nouvel article et pousser GitHub + Vercel

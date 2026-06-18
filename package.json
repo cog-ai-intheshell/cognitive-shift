@@ -1,0 +1,13 @@
+{
+  "name": "cognitive-shift-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static website and content CLI for Cognitive Shift.",
+  "bin": {
+    "cognitiveshift": "scripts/content-cli.js"
+  },
+  "scripts": {
+    "start": "node scripts/server.js",
+    "content": "node scripts/content-cli.js"
+  }
+}

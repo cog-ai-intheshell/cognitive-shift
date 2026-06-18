@@ -465,11 +465,14 @@ function maybeGit(message, options, paths = ["content", "data"]) {
 
   execFileSync("git", ["add", ...paths], { stdio: "inherit" });
 
-  const status = execFileSync("git", ["status", "--porcelain"], { encoding: "utf8" }).trim();
-  if (!status) {
+  const staged = spawnSync("git", ["diff", "--cached", "--quiet"]);
+  if (staged.status === 0) {
     console.log("No changes to commit.");
     maybeVercel(options);
     return;
+  }
+  if (staged.status !== 1) {
+    throw new Error("Could not inspect staged Git changes.");
   }
 
   execFileSync("git", ["commit", "-m", message], { stdio: "inherit" });

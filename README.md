@@ -102,7 +102,7 @@ Regles:
   "category": "agentic",
   "name": "Language Model",
   "shortDescription": "Skill optimization process",
-  "description": "Lean Design reduces every application to its core value moment...",
+  "description": "Cognitive Shift transforms cutting-edge AI research from MIT and the best practices developed by leading Silicon Valley companies into directly applicable frameworks.",
   "keywords": ["agentic", "llm", "security", "skill"]
 }
 ```

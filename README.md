@@ -76,10 +76,21 @@ article-1/
   cover.pdf
 ```
 
+Pour un contenu non prévisualisable, `content` peut aussi être un dossier:
+
+```text
+skill-pack/
+  article.json
+  content/
+    ...
+  cover.png
+```
+
 Regles:
 
 - `article.json` est obligatoire.
 - Le document doit s'appeler `content`, avec n'importe quelle extension utile: `content.pdf`, `content.md`, `content.zip`, etc.
+- Si `content` est un dossier, la page article affiche l'etat "no preview available" avec une icone dossier.
 - La cover doit s'appeler `cover`, avec extension `cover.png`, `cover.jpg`, `cover.webp` ou `cover.pdf`.
 - Si `cover.pdf` est utilise, le CLI genere automatiquement `cover-preview.png` dans `content/articles/<slug>/`.
 
@@ -100,7 +111,7 @@ Champs:
 
 | Champ | Obligatoire | Maximum | Notes |
 | --- | --- | ---: | --- |
-| `type` | oui | 12 caracteres | `pdf`, `md`, `file` ou `other` |
+| `type` | oui | 12 caracteres | `pdf`, `md`, `folder`, `file` ou `other` |
 | `category` | oui | 40 caracteres | slug d'une categorie existante |
 | `name` | oui | 18 caracteres | titre affiche sur la page article |
 | `shortDescription` | oui | 42 caracteres | texte court sous la cover sur l'accueil |

@@ -465,7 +465,6 @@ body[data-page="manifest"] .page-nav {
   width: 100%;
 }
 
-.markdown-preview,
 .file-preview {
   background: #f7f7f7;
   color: var(--color-muted);
@@ -475,11 +474,69 @@ body[data-page="manifest"] .page-nav {
   padding: 30px;
 }
 
-.markdown-preview h1,
-.markdown-preview h2,
-.markdown-preview h3 {
+.markdown-preview {
+  background: #d9d9d9;
+  border-radius: 16px;
   color: var(--color-text);
-  line-height: 1.16;
+  font-family: "Fira Code", "SF Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 20px;
+  height: 1061px;
+  line-height: var(--line-body);
+  margin: 0;
+  overflow: auto;
+  padding: 24px 25px 36px;
+  white-space: pre-wrap;
+}
+
+.file-preview--folder {
+  align-items: center;
+  background: #ffffff;
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 1061px;
+  justify-content: center;
+  padding: 0;
+  text-align: center;
+}
+
+.file-preview--folder p {
+  font-size: 25.112px;
+  font-weight: var(--weight-light);
+  line-height: 0.73;
+  margin: 0;
+}
+
+.folder-preview-icon {
+  background: linear-gradient(180deg, #79bbff 0%, #2f86f6 100%);
+  border-radius: 19px;
+  display: block;
+  height: 158px;
+  position: relative;
+  width: 214px;
+}
+
+.folder-preview-icon::before {
+  background: #99ccff;
+  border-radius: 18px 18px 0 0;
+  content: "";
+  height: 42px;
+  left: 18px;
+  position: absolute;
+  top: -26px;
+  width: 92px;
+}
+
+.folder-preview-icon::after {
+  background: rgba(255, 255, 255, 0.24);
+  border-radius: 15px;
+  content: "";
+  height: 22px;
+  left: 21px;
+  position: absolute;
+  right: 21px;
+  top: 25px;
 }
 
 .article-sidebar {
@@ -627,6 +684,12 @@ body[data-page="manifest"] .page-nav {
   }
 
   body[data-page="article"] .viewer-frame {
+    height: 72vh;
+    min-height: 520px;
+  }
+
+  body[data-page="article"] .markdown-preview,
+  body[data-page="article"] .file-preview--folder {
     height: 72vh;
     min-height: 520px;
   }
@@ -935,6 +998,49 @@ body[data-page="manifest"] .page-nav {
   .file-preview {
     font-size: var(--text-body-large);
     padding: 16px;
+  }
+
+  body[data-page="article"] .markdown-preview,
+  body[data-page="article"] .file-preview--folder {
+    height: 176px;
+    min-height: 0;
+  }
+
+  body[data-page="article"] .markdown-preview {
+    font-size: 10px;
+    line-height: 1.45;
+  }
+
+  body[data-page="article"] .file-preview--folder {
+    gap: 12px;
+    padding: 0;
+  }
+
+  body[data-page="article"] .file-preview--folder p {
+    font-size: var(--text-body-large);
+    line-height: 1;
+  }
+
+  body[data-page="article"] .folder-preview-icon {
+    border-radius: 9px;
+    height: 68px;
+    width: 92px;
+  }
+
+  body[data-page="article"] .folder-preview-icon::before {
+    border-radius: 8px 8px 0 0;
+    height: 18px;
+    left: 8px;
+    top: -11px;
+    width: 39px;
+  }
+
+  body[data-page="article"] .folder-preview-icon::after {
+    border-radius: 7px;
+    height: 9px;
+    left: 9px;
+    right: 9px;
+    top: 11px;
   }
 
   .manifest-page {

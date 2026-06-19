@@ -51,6 +51,21 @@
     "coverPreviewPath": "content/articles/article-3/cover-preview.png"
   },
   {
+    "slug": "folder-test",
+    "type": "folder",
+    "category": "skills-library",
+    "name": "Folder test",
+    "shortDescription": "Folder content preview",
+    "description": "Test article using a content folder instead of a single PDF or Markdown file.",
+    "keywords": [
+      "folder",
+      "test"
+    ],
+    "contentPath": "content/articles/folder-test/content",
+    "coverPath": "content/articles/folder-test/cover.png",
+    "coverPreviewPath": "content/articles/folder-test/cover.png"
+  },
+  {
     "slug": "skill-1",
     "type": "md",
     "category": "skills-library",

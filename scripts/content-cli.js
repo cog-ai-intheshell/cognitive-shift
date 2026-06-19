@@ -9,7 +9,7 @@ const contentRoot = path.join(root, "content");
 const articleRoot = path.join(contentRoot, "articles");
 const categoryRoot = path.join(contentRoot, "categories");
 const dataRoot = path.join(root, "data");
-const validTypes = new Set(["pdf", "md", "file", "other"]);
+const validTypes = new Set(["pdf", "md", "folder", "file", "other"]);
 const productionAlias = process.env.COGNITIVE_SHIFT_DOMAIN || "cognitiveshift.vercel.app";
 const limits = {
   article: {
@@ -240,8 +240,8 @@ function upsertArticle(sourceDirArg, slugArg, { dryRun }) {
   if (path.resolve(sourceDir) !== path.resolve(destination)) {
     removeManagedArticleAssets(destination);
   }
-  fs.copyFileSync(contentFile, contentDestination);
-  fs.copyFileSync(coverFile, coverDestination);
+  copyPathSync(contentFile, contentDestination);
+  copyPathSync(coverFile, coverDestination);
   fs.writeFileSync(metadataDestination, `${JSON.stringify(metadata, null, 2)}\n`);
   console.log(`Article ${slug} written.`);
 }
@@ -422,8 +422,20 @@ function removeManagedArticleAssets(directory) {
       return baseName === "content" || baseName === "cover" || name === "cover-preview.png";
     })
     .forEach((name) => {
-      fs.rmSync(path.join(directory, name), { force: true });
+      fs.rmSync(path.join(directory, name), { recursive: true, force: true });
     });
+}
+
+function copyPathSync(source, destination) {
+  if (path.resolve(source) === path.resolve(destination)) return;
+
+  const sourceStats = fs.statSync(source);
+  if (sourceStats.isDirectory()) {
+    fs.cpSync(source, destination, { recursive: true });
+    return;
+  }
+
+  fs.copyFileSync(source, destination);
 }
 
 function resolveCategoryJson(slug, jsonArg, allowExistingTarget) {

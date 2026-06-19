@@ -124,27 +124,29 @@
         return;
       }
 
-      document.title = `${article.name} - Cognitive Shift`;
-      target.innerHTML = renderArticleDetail(article);
+      const contentKind = getContentKind(article);
 
-      if (article.type === "md") {
+      document.title = `${article.name} - Cognitive Shift`;
+      target.innerHTML = renderArticleDetail(article, contentKind);
+
+      if (contentKind === "md") {
         const markdownTarget = target.querySelector("[data-markdown-target]");
         const response = await fetch(article.contentPath, { cache: "no-store" });
-        markdownTarget.innerHTML = response.ok
-          ? markdownToHtml(await response.text())
-          : "<p>Markdown preview unavailable.</p>";
+        markdownTarget.textContent = response.ok
+          ? await response.text()
+          : "Markdown preview unavailable.";
       }
     } catch (error) {
       target.innerHTML = `<p class="status-message">${escapeHtml(error.message)}</p>`;
     }
   }
 
-  function renderArticleDetail(article) {
+  function renderArticleDetail(article, contentKind) {
     const coverPath = article.coverPreviewPath || article.coverPath;
     return `
-      <article class="article-layout" data-article-type="${escapeAttribute(article.type)}">
+      <article class="article-layout" data-article-type="${escapeAttribute(contentKind)}" data-content-kind="${escapeAttribute(contentKind)}">
         <div class="article-media">
-          ${renderViewer(article)}
+          ${renderViewer(article, contentKind)}
         </div>
         <aside class="article-sidebar">
           <img class="article-sidebar-cover" src="${escapeAttribute(coverPath)}" alt="">
@@ -156,8 +158,8 @@
     `;
   }
 
-  function renderViewer(article) {
-    if (article.type === "pdf") {
+  function renderViewer(article, contentKind) {
+    if (contentKind === "pdf") {
       const pdfSrc = `${article.contentPath}#toolbar=0&navpanes=0&scrollbar=0&view=FitH&pagemode=none`;
       return `
         <div class="pdf-viewer-shell">
@@ -166,8 +168,17 @@
       `;
     }
 
-    if (article.type === "md") {
-      return '<div class="markdown-preview" data-markdown-target><p>Loading markdown...</p></div>';
+    if (contentKind === "md") {
+      return '<pre class="markdown-preview" data-markdown-target>Loading markdown...</pre>';
+    }
+
+    if (contentKind === "folder") {
+      return `
+        <div class="file-preview file-preview--folder">
+          <span class="folder-preview-icon" aria-hidden="true"></span>
+          <p>no preview available</p>
+        </div>
+      `;
     }
 
     return `
@@ -178,39 +189,15 @@
     `;
   }
 
-  function markdownToHtml(markdown) {
-    const lines = markdown.replace(/\r\n/g, "\n").split("\n");
-    let html = "";
-    let inList = false;
+  function getContentKind(article) {
+    const contentPath = String(article.contentPath || "").split(/[?#]/)[0].replace(/\/+$/, "").toLowerCase();
+    const declaredType = String(article.type || "").toLowerCase();
 
-    lines.forEach((line) => {
-      if (/^\s*[-*]\s+/.test(line)) {
-        if (!inList) {
-          html += "<ul>";
-          inList = true;
-        }
-        html += `<li>${escapeHtml(line.replace(/^\s*[-*]\s+/, ""))}</li>`;
-        return;
-      }
-
-      if (inList) {
-        html += "</ul>";
-        inList = false;
-      }
-
-      if (/^###\s+/.test(line)) {
-        html += `<h3>${escapeHtml(line.replace(/^###\s+/, ""))}</h3>`;
-      } else if (/^##\s+/.test(line)) {
-        html += `<h2>${escapeHtml(line.replace(/^##\s+/, ""))}</h2>`;
-      } else if (/^#\s+/.test(line)) {
-        html += `<h1>${escapeHtml(line.replace(/^#\s+/, ""))}</h1>`;
-      } else if (line.trim()) {
-        html += `<p>${escapeHtml(line)}</p>`;
-      }
-    });
-
-    if (inList) html += "</ul>";
-    return html || "<p>No markdown content.</p>";
+    if (contentPath.endsWith(".pdf")) return "pdf";
+    if (contentPath.endsWith(".md")) return "md";
+    if (contentPath.endsWith("/content") || contentPath === "content") return "folder";
+    if (declaredType === "pdf" || declaredType === "md" || declaredType === "folder") return declaredType;
+    return declaredType || "file";
   }
 
   function escapeHtml(value) {

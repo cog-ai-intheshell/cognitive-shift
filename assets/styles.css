@@ -10,8 +10,6 @@
   --color-soft-hover: #dedede;
   --color-blue: #0a84ff;
   --color-blue-hover: #006ee6;
-  --color-footer: #191919;
-  --color-footer-text: #ffffff;
   --color-overlay: rgba(0, 0, 0, 0.34);
 
   /* Typography */
@@ -47,8 +45,6 @@
   --download-size: 16.144px;
   --search-width: 322.5px;
   --search-height: 42px;
-  --footer-copy-width: 877.5px;
-  --footer-height: 296.25px;
   --article-page-max: 1852px;
   --article-media-max: 1317px;
   --article-sidebar-width: 499px;
@@ -392,25 +388,6 @@ input {
   line-height: var(--line-body);
   margin: 0 0 12px;
   max-width: 885.75px;
-}
-
-.site-footer {
-  align-items: flex-start;
-  background: var(--color-footer);
-  color: var(--color-footer-text);
-  display: flex;
-  justify-content: center;
-  min-height: var(--footer-height);
-  padding: 113px var(--page-pad) 96px;
-}
-
-.site-footer p {
-  font-size: var(--text-body-large);
-  font-weight: var(--weight-light);
-  line-height: var(--line-body);
-  margin: 0;
-  max-width: var(--footer-copy-width);
-  width: min(100%, var(--footer-copy-width));
 }
 
 .article-shell {
@@ -922,17 +899,6 @@ body[data-page="manifest"] .page-nav {
   .manifest-teaser a {
     font-size: var(--text-body-large);
     line-height: 15px;
-  }
-
-  .site-footer {
-    min-height: 174px;
-    padding: 56px var(--mobile-page-pad) 52px;
-  }
-
-  .site-footer p {
-    font-size: var(--text-body-large);
-    line-height: 1.45;
-    max-width: 279px;
   }
 
   body[data-page="article"] .article-shell {

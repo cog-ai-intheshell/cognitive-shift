@@ -181,6 +181,10 @@ body[data-page="home"].is-search-mode .category-section.is-search-first {
   margin-top: 48px !important;
 }
 
+body[data-page="home"].is-search-mode .category-section + .category-section {
+  margin-top: 60px;
+}
+
 body[data-page="home"].is-search-mode .category-header p,
 body[data-page="home"].is-search-mode .see-all-link {
   display: none;
@@ -377,6 +381,10 @@ body[data-page="home"] :focus-visible {
 
   body[data-page="home"].is-search-mode .category-section.is-search-first {
     margin-top: 28px !important;
+  }
+
+  body[data-page="home"].is-search-mode .category-section + .category-section {
+    margin-top: 40px;
   }
 
   body[data-page="home"] .library-toolbar-inner {

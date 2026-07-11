@@ -107,11 +107,6 @@
         sectionsEl.querySelectorAll(".category-section").forEach((section) => {
           section.classList.remove("is-search-first");
 
-          if (section.id === "project-management") {
-            section.hidden = true;
-            return;
-          }
-
           const matchesCategory = activeSearchCategory === "all" || section.id === activeSearchCategory;
           const matchesQuery = !query || section.textContent.toLowerCase().includes(query);
           const shouldShow = matchesCategory && matchesQuery;
@@ -224,7 +219,13 @@
 
     const designCategories = getDesignCategories();
 
-    designCategories.forEach((designCategory, categoryIndex) => {
+    if (libraryToolbar) {
+      container.appendChild(toolbarSpacer);
+      container.appendChild(libraryToolbar);
+      toolbarPlaced = true;
+    }
+
+    designCategories.forEach((designCategory) => {
       const source = categories.find((item) => item.slug === designCategory.slug) || {};
       const category = { ...source, ...designCategory };
       const queryHasResults = showEmptyCategories || articles.length > 0;
@@ -246,11 +247,6 @@
         </div>
       `;
       container.appendChild(section);
-      if (categoryIndex === 0 && libraryToolbar) {
-        container.appendChild(toolbarSpacer);
-        container.appendChild(libraryToolbar);
-        toolbarPlaced = true;
-      }
     });
 
     if (libraryToolbar && !toolbarPlaced) {
@@ -261,7 +257,6 @@
 
   function getDesignCategories() {
     return [
-      { slug: "project-management", name: "Project Management", cardCount: 5 },
       { slug: "agent-library", name: "Agent library" },
       { slug: "code-library", name: "Code Library" },
       { slug: "knowledge-library", name: "Knowledge Librairy" },
@@ -276,11 +271,10 @@
     ];
   }
 
-  function renderDesignCard(category, index, { uniform = false } = {}) {
-    const isHero = !uniform && category.slug === "project-management" && index === 0;
+  function renderDesignCard(category, index) {
     const searchText = `${category.name} lorem ipsum item ${index + 1}`.toLowerCase();
     return `
-      <article class="article-card design-card${isHero ? " design-card--hero" : ""}" data-search="${escapeAttribute(searchText)}" aria-label="${escapeAttribute(category.name)} example ${index + 1}">
+      <article class="article-card design-card" data-search="${escapeAttribute(searchText)}" aria-label="${escapeAttribute(category.name)} example ${index + 1}">
         <div class="article-cover-link design-card-cover">
           <img src="assets/library-card-cover.png" alt="">
           <div class="design-card-label" aria-hidden="true">
@@ -332,7 +326,7 @@
       descriptionEl.textContent = category.description || fallbackDescription;
       gridEl.innerHTML = Array.from(
         { length: 16 },
-        (_, index) => renderDesignCard(category, index, { uniform: true })
+        (_, index) => renderDesignCard(category, index)
       ).join("");
 
       const filterCards = () => {
@@ -370,7 +364,6 @@
     const filterButtons = Array.from(document.querySelectorAll("[data-update-filter]"));
     const libraryNames = new Map(
       getDesignCategories()
-        .filter((category) => category.slug !== "project-management")
         .map((category) => [category.slug, category.name])
     );
     const categorySequence = [

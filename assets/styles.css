@@ -402,14 +402,6 @@ input {
   margin-top: -0.867px;
 }
 
-.category-section--agent-library .category-inner {
-  gap: 41.25px;
-}
-
-.category-section--agent-library .article-grid {
-  row-gap: 21.851px;
-}
-
 .article-grid {
   display: grid;
   gap: var(--space-grid-row) var(--space-grid-col);

@@ -190,6 +190,11 @@ body[data-page="home"].is-search-mode .see-all-link {
   display: none;
 }
 
+body[data-page="home"].is-search-mode .manifest-teaser,
+body[data-page="home"].is-search-mode .site-footer {
+  display: none;
+}
+
 body[data-page="home"].is-search-mode .category-inner {
   gap: 24px;
 }

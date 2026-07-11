@@ -241,9 +241,8 @@
             ${category.description ? `<p>${escapeHtml(category.description)}</p>` : ""}
           </header>
           <div class="article-grid">
-            ${Array.from({ length: category.cardCount || 8 }, (_, index) => renderDesignCard(category, index)).join("")}
+            ${Array.from({ length: category.cardCount || 16 }, (_, index) => renderDesignCard(category, index)).join("")}
           </div>
-          <a class="see-all-link section-link" href="library.html?category=${encodeURIComponent(category.slug)}">see more</a>
         </div>
       `;
       container.appendChild(section);

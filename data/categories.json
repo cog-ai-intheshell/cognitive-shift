@@ -2,7 +2,7 @@
   {
     "slug": "agent-library",
     "name": "Agent Librairy",
-    "description": "The agents directory is the core execution engine of the AI Lean Factory. It contains a suite of specialized, self-contained Python packages that perform discrete tasks in the app generation and validation pipeline."
+    "description": "Specialized Python agents that execute each step of app generation and validation."
   },
   {
     "slug": "agentic",
@@ -12,27 +12,27 @@
   {
     "slug": "code-library",
     "name": "Code Library",
-    "description": "The Code directory houses reusable code components (Python and Swift) packaged as self-contained \"blocks,\" as well as local web UIs for exercising and testing these blocks."
+    "description": "Reusable Python and Swift blocks, with local interfaces for testing them."
   },
   {
     "slug": "ios-ready",
     "name": "iOS Ready",
-    "description": "This document outlines the architecture and current state of the iOS ready models within the ai-lean-factory workspace, specifically focusing on the libraries/ai-farm/ready directory and its related registry files."
+    "description": "Production-ready iOS models and their registry files for direct integration."
   },
   {
     "slug": "knowledge-library",
     "name": "Knowledge Librairy",
-    "description": "The libraries/knowledge directory serves as the centralized memory and vertical corpora for the AI Lean Factory. It contains domain-specific knowledge bases that various applications, design agents, and computer vision models draw upon. Instead of hardcoding logic, the system feeds these markdown-based references to agents to ground their decision-making in established theories, guidelines, and rules."
+    "description": "Domain knowledge that grounds agents and models in trusted rules and guidelines."
   },
   {
     "slug": "mcp-library",
     "name": "MCP Library",
-    "description": "The MCP (Model Context Protocol) library houses shared servers and tools designed to be called by autonomous agents (such as Codex or Claude). Each subdirectory represents a standalone MCP server with its own operational bounds, run instructions, and internal state management."
+    "description": "Shared MCP servers and tools that autonomous agents can call safely."
   },
   {
     "slug": "model-library",
     "name": "Model Library",
-    "description": "This directory houses the AI-Lean-Factory's vision-model layer. It is built around a \"one model = one self-contained block\" architecture to ensure that models are highly portable, easily testable in CI environments, and trivially wrappable as MCP (Model Context Protocol) tools."
+    "description": "Portable, self-contained vision models designed for testing and MCP integration."
   },
   {
     "slug": "skills-library",
@@ -42,6 +42,6 @@
   {
     "slug": "skills",
     "name": "Skills",
-    "description": "The libraries directory is the designated central repository for reusable, cross-app skills within the AI Lean Factory project. A \"skill\" represents a focused, specific capability that AI agents can utilize to perform concrete tasks."
+    "description": "Reusable cross-app capabilities that agents use to complete focused tasks."
   }
 ]

@@ -1,4 +1,4 @@
 {
   "name": "iOS Ready",
-  "description": "This document outlines the architecture and current state of the iOS ready models within the ai-lean-factory workspace, specifically focusing on the libraries/ai-farm/ready directory and its related registry files."
+  "description": "Production-ready iOS models and their registry files for direct integration."
 }

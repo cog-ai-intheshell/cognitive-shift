@@ -1,4 +1,4 @@
 {
   "name": "Model Library",
-  "description": "This directory houses the AI-Lean-Factory's vision-model layer. It is built around a \"one model = one self-contained block\" architecture to ensure that models are highly portable, easily testable in CI environments, and trivially wrappable as MCP (Model Context Protocol) tools."
+  "description": "Portable, self-contained vision models designed for testing and MCP integration."
 }

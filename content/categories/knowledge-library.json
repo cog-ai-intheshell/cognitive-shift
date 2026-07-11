@@ -1,4 +1,4 @@
 {
   "name": "Knowledge Librairy",
-  "description": "The libraries/knowledge directory serves as the centralized memory and vertical corpora for the AI Lean Factory. It contains domain-specific knowledge bases that various applications, design agents, and computer vision models draw upon. Instead of hardcoding logic, the system feeds these markdown-based references to agents to ground their decision-making in established theories, guidelines, and rules."
+  "description": "Domain knowledge that grounds agents and models in trusted rules and guidelines."
 }

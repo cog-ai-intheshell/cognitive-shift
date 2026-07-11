@@ -1,4 +1,4 @@
 {
   "name": "MCP Library",
-  "description": "Shared MCP servers and tools that autonomous agents can call safely."
+  "description": "MCP Library groups shared servers and tools that autonomous agents can call safely, with each service clearly defining its limits, setup instructions and internal state for reliable execution."
 }

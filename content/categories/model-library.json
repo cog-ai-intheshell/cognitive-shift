@@ -1,4 +1,4 @@
 {
   "name": "Model Library",
-  "description": "Portable, self-contained vision models designed for testing and MCP integration."
+  "description": "Model Library organizes portable, self-contained vision models that can be tested independently, validated in continuous integration, and exposed as MCP tools for reuse across AI applications."
 }

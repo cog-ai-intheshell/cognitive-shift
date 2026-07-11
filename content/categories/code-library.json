@@ -1,4 +1,4 @@
 {
   "name": "Code Library",
-  "description": "Reusable Python and Swift blocks, with local interfaces for testing them."
+  "description": "Code Library gathers reusable Python and Swift blocks, plus local UIs for testing them, so teams can assemble apps faster, validate each component, and avoid rebuilding all common foundations."
 }

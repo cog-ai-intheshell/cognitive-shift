@@ -1,4 +1,4 @@
 {
   "name": "Knowledge Librairy",
-  "description": "Domain knowledge that grounds agents and models in trusted rules and guidelines."
+  "description": "Knowledge Library centralizes references that ground agents and models in trusted theories, guidelines and rules, helping the app make informed decisions instead of relying on hardcoded logic."
 }

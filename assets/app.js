@@ -67,25 +67,66 @@
   function renderSections(container, categories, articles, { showEmptyCategories = false } = {}) {
     container.innerHTML = "";
 
-    categories.forEach((category) => {
-      const categoryArticles = articles.filter((article) => article.category === category.slug);
-      if (categoryArticles.length === 0 && !showEmptyCategories) return;
+    const designCategories = [
+      { slug: "project-management", name: "Project Management", cardCount: 5 },
+      { slug: "agent-library", name: "Agent library" },
+      { slug: "code-library", name: "Code Library" },
+      { slug: "knowledge-library", name: "Knowledge Librairy" },
+      { slug: "mcp-library", name: "MCP Library" },
+      { slug: "model-library", name: "Model Library" },
+      {
+        slug: "ios-ready",
+        name: "iOS Librairy",
+        featured: true,
+        description: "Lean Design reduces every application to its core value moment: the screen that creates understanding, the action that validates the use case, and the metric that determines what happens next."
+      }
+    ];
+
+    designCategories.forEach((designCategory) => {
+      const source = categories.find((item) => item.slug === designCategory.slug) || {};
+      const category = { ...source, ...designCategory };
+      const queryHasResults = showEmptyCategories || articles.length > 0;
+      if (!queryHasResults) return;
 
       const section = document.createElement("section");
-      section.className = "category-section";
+      section.className = `category-section category-section--${category.slug}${category.featured ? " category-section--featured" : ""}`;
       section.innerHTML = `
-        <header class="category-header">
-          <h2>${escapeHtml(category.name)}</h2>
-          ${category.description ? `<p>${escapeHtml(category.description)}</p>` : ""}
-        </header>
-        ${categoryArticles.length > 0 ? `
+        <div class="category-inner">
+          <header class="category-header">
+            <h2>${escapeHtml(category.name)}</h2>
+            ${category.description ? `<p>${escapeHtml(category.description)}</p>` : ""}
+          </header>
           <div class="article-grid">
-            ${categoryArticles.map(renderArticleCard).join("")}
+            ${Array.from({ length: category.cardCount || 8 }, (_, index) => renderDesignCard(category, index)).join("")}
           </div>
-        ` : ""}
+          ${category.slug === "agent-library" ? "" : '<a class="see-all-link" href="#">see all</a>'}
+        </div>
       `;
       container.appendChild(section);
     });
+  }
+
+  function renderDesignCard(category, index) {
+    return `
+      <article class="article-card design-card${category.slug === "project-management" && index === 0 ? " design-card--hero" : ""}" aria-label="${escapeAttribute(category.name)} example ${index + 1}">
+        <div class="article-cover-link design-card-cover">
+          <img src="assets/library-card-cover.png" alt="">
+          <div class="design-card-label" aria-hidden="true">
+            <span class="design-card-mark"></span>
+            <strong>Lorem</strong>
+            <span>Ipsum exfrasis</span>
+          </div>
+        </div>
+        <div class="article-meta-row">
+          <p class="article-short">lorem ipsum</p>
+          <a class="download-dot" href="assets/library-card-cover.png" download aria-label="Download ${escapeAttribute(category.name)} example ${index + 1}">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 6.5v11m0 0 5-5m-5 5-5-5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
+        </div>
+      </article>
+    `;
   }
 
   function renderArticleCard(article) {

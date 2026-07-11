@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cognitive Shift</title>
     <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/home.css">
   </head>
   <body data-page="home">
     <main class="site-shell">
@@ -19,19 +20,31 @@
           and the latest industry practices from leading Silicon Valley companies, Cognitive Shift transforms
           complex ideas into directly applicable frameworks.
         </p>
+        <a class="hero-update-button" href="updates.html">check last updates</a>
       </section>
 
-      <section class="library-section" aria-label="Article library">
-        <div class="search-row">
+      <div class="library-toolbar">
+        <div class="library-toolbar-inner">
+          <nav class="category-nav" aria-label="Library categories">
+            <a class="category-filter-all" href="#library" hidden>All</a>
+            <a class="is-active" href="#agent-library">Agents</a>
+            <a href="#code-library">Code</a>
+            <a href="#knowledge-library">Knowledge</a>
+            <a href="#mcp-library">MCP</a>
+            <a href="#model-library">Models</a>
+            <a href="#ios-ready">iOS</a>
+          </nav>
           <label class="search-pill" for="article-search">
             <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
               <path d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
             </svg>
-            <input id="article-search" type="search" autocomplete="off" placeholder="Search articles" aria-label="Search articles">
+            <input id="article-search" type="search" autocomplete="off" placeholder="" aria-label="Search resources">
             <button class="search-clear" type="button" aria-label="Clear search" hidden>&times;</button>
           </label>
         </div>
+      </div>
 
+      <section id="library" class="library-section" aria-label="Article library">
         <div id="article-sections" class="article-sections" aria-live="polite"></div>
         <p id="empty-state" class="empty-state" hidden>No article found.</p>
       </section>
@@ -44,22 +57,39 @@
           libre, ouverte et itérée, où les idées peuvent être diffusées, critiquées, améliorées et évaluées sans
           dépendre exclusivement des circuits institutionnels traditionnels.
         </p>
-        <a href="manifest.html">read our full manifest</a>
+        <a class="section-link" href="manifest.html">read our full manifest</a>
       </section>
     </main>
 
     <footer class="site-footer" aria-label="Footer">
-      <h2>Footer</h2>
-      <div class="site-footer-links">
+      <div class="site-footer-brand">
+        <span class="site-footer-mark" aria-hidden="true">CS</span>
         <div>
-          <a href="#">Blabla Footer</a>
-          <a href="#">Blabla Footer</a>
-        </div>
-        <div>
-          <a href="#">Blabla Footer</a>
-          <a href="#">Blabla Footer</a>
+          <strong>Cognitive Shift</strong>
+          <p>Build lean. Measure fast. Keep only what wins.</p>
         </div>
       </div>
+      <div class="site-footer-links" aria-label="Footer links">
+        <div>
+          <span>Explore</span>
+          <a href="#project-management">Project Management</a>
+          <a href="#agent-library">Agent Library</a>
+          <a href="#code-library">Code Library</a>
+          <a href="#knowledge-library">Knowledge Library</a>
+        </div>
+        <div>
+          <span>Build</span>
+          <a href="#mcp-library">MCP Library</a>
+          <a href="#model-library">Model Library</a>
+          <a href="#ios-ready">iOS Ready</a>
+          <a href="manifest.html">Manifest</a>
+        </div>
+        <div>
+          <span>Connect</span>
+          <a href="https://github.com/cog-ai-intheshell/cognitive-shift" target="_blank" rel="noreferrer">GitHub ↗</a>
+        </div>
+      </div>
+      <p class="site-footer-meta">Independent research platform · 2026</p>
     </footer>
 
     <script src="assets/app.js"></script>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Libraries updates - Cognitive Shift</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/updates.css">
+  </head>
+  <body data-page="updates">
+    <main class="updates-page">
+      <nav class="updates-back" aria-label="Back navigation">
+        <a href="home.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span>back to previous page</span>
+        </a>
+      </nav>
+
+      <header class="updates-header">
+        <h1>Libraries updates</h1>
+        <p>this week we achieved</p>
+        <div class="updates-summary" aria-label="Weekly update summary">
+          <span><strong>3</strong> updates</span>
+          <span aria-hidden="true">|</span>
+          <span><strong>25</strong> new blocks</span>
+        </div>
+      </header>
+
+      <section class="updates-content" aria-label="Latest library updates">
+        <div class="updates-toolbar">
+          <nav class="updates-filters" aria-label="Filter updates by library">
+            <button class="is-active" type="button" data-update-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-update-filter="agent-library" aria-pressed="false">Agents</button>
+            <button type="button" data-update-filter="code-library" aria-pressed="false">Code</button>
+            <button type="button" data-update-filter="knowledge-library" aria-pressed="false">Knowledge</button>
+            <button type="button" data-update-filter="mcp-library" aria-pressed="false">MCP</button>
+            <button type="button" data-update-filter="model-library" aria-pressed="false">Models</button>
+            <button type="button" data-update-filter="ios-ready" aria-pressed="false">iOS</button>
+          </nav>
+
+          <label class="updates-search" for="updates-search-input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+            <input id="updates-search-input" type="search" autocomplete="off" placeholder="" aria-label="Search updates">
+            <button class="updates-search-clear" type="button" aria-label="Clear update search" hidden>&times;</button>
+          </label>
+        </div>
+
+        <div id="updates-groups" class="updates-groups" aria-live="polite"></div>
+        <p id="updates-empty" class="updates-empty" hidden>No update found.</p>
+      </section>
+
+      <aside class="updates-history" aria-label="Update history">
+        <span class="updates-history-title">History</span>
+        <nav id="updates-history-nav"></nav>
+      </aside>
+    </main>
+
+    <script src="assets/app.js"></script>
+  </body>
+</html>

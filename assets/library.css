@@ -1,0 +1,328 @@
+body[data-page="library"] {
+  --library-page-pad: clamp(24px, 3vw, 48px);
+  color: #050505;
+  min-height: 100vh;
+}
+
+body[data-page="library"] .library-page {
+  margin: 0 auto;
+  padding: 0 var(--library-page-pad) 180px;
+}
+
+body[data-page="library"] .library-back {
+  padding-top: 26px;
+}
+
+body[data-page="library"] .library-back a {
+  align-items: center;
+  color: #202020;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 400;
+  gap: 8px;
+  line-height: 24px;
+}
+
+body[data-page="library"] .library-back a:hover,
+body[data-page="library"] .library-back a:focus-visible {
+  color: var(--color-blue);
+  text-decoration: none;
+}
+
+body[data-page="library"] .library-back svg {
+  height: 18px;
+  width: 18px;
+}
+
+body[data-page="library"] .library-page-header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 980px;
+  padding: 124px 0 0;
+  text-align: center;
+}
+
+body[data-page="library"] .library-page-header h1 {
+  font-size: clamp(64px, 6vw, 90px);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  margin: 0;
+}
+
+body[data-page="library"] .library-page-header p {
+  color: #2f2f2f;
+  font-size: 18px;
+  font-weight: var(--weight-light);
+  line-height: 1.5;
+  margin: 58px auto 0;
+  max-width: 890px;
+}
+
+body[data-page="library"] .library-search-pill {
+  align-items: center;
+  background: #e7e7e7;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: #9a9a9a;
+  display: flex;
+  gap: 10px;
+  height: 43px;
+  margin-top: 70px;
+  padding: 0 18px;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  width: min(100%, 323px);
+}
+
+body[data-page="library"] .library-search-pill:focus-within {
+  background: #fff;
+  border-color: #88888d;
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.12);
+  color: #6e6e73;
+}
+
+body[data-page="library"] .library-search-icon {
+  flex: 0 0 auto;
+  height: 16px;
+  width: 16px;
+}
+
+body[data-page="library"] .library-search-pill input {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #050505;
+  height: 100%;
+  min-width: 0;
+  outline: 0;
+  width: 100%;
+}
+
+body[data-page="library"] .library-search-pill input::-webkit-search-cancel-button {
+  appearance: none;
+  display: none;
+}
+
+body[data-page="library"] .library-search-clear {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  color: #3a3a3c;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 24px;
+  font-size: 18px;
+  height: 24px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  width: 24px;
+}
+
+body[data-page="library"] .library-search-clear[hidden] {
+  display: none;
+}
+
+body[data-page="library"] .library-results {
+  margin: 112px auto 0;
+  max-width: var(--page-max);
+}
+
+body[data-page="library"] .library-page-grid {
+  display: grid;
+  gap: 43px 40px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  perspective: 1200px;
+}
+
+body[data-page="library"] .library-page-grid .article-card {
+  transform-origin: center 72%;
+  transform-style: preserve-3d;
+  transition: filter 420ms ease, transform 420ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  width: 100%;
+}
+
+body[data-page="library"] .library-page-grid .article-card[hidden] {
+  display: none;
+}
+
+body[data-page="library"] .library-page-grid .article-cover-link {
+  aspect-ratio: 16 / 9;
+  height: auto;
+  transition: box-shadow 420ms ease, transform 420ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+body[data-page="library"] .library-page-grid .article-meta-row {
+  transition: transform 420ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+body[data-page="library"] .library-page-grid .article-card:hover,
+body[data-page="library"] .library-page-grid .article-card:focus-within {
+  filter: drop-shadow(0 24px 22px rgba(0, 0, 0, 0.12));
+  transform: perspective(1000px) translate3d(0, -8px, 0) rotateX(2deg) rotateY(-1deg) scale(1.012);
+  z-index: 4;
+}
+
+body[data-page="library"] .library-page-grid .article-card:nth-child(even):hover,
+body[data-page="library"] .library-page-grid .article-card:nth-child(even):focus-within {
+  transform: perspective(1000px) translate3d(0, -8px, 0) rotateX(2deg) rotateY(1deg) scale(1.012);
+}
+
+body[data-page="library"] .library-page-grid .article-card:hover .article-cover-link,
+body[data-page="library"] .library-page-grid .article-card:focus-within .article-cover-link {
+  box-shadow: 0 18px 34px -18px rgba(0, 0, 0, 0.42);
+  transform: translateZ(18px);
+}
+
+body[data-page="library"] .library-page-grid .article-card:hover .article-cover-link img,
+body[data-page="library"] .library-page-grid .article-card:focus-within .article-cover-link img {
+  transform: scale(1.04);
+}
+
+body[data-page="library"] .library-page-grid .article-card:hover .article-meta-row,
+body[data-page="library"] .library-page-grid .article-card:focus-within .article-meta-row {
+  transform: translateZ(24px);
+}
+
+body[data-page="library"] .library-page-empty {
+  color: #6e6e73;
+  font-size: 16px;
+  margin: 0;
+  padding: 80px 0;
+  text-align: center;
+}
+
+body[data-page="library"] :focus-visible {
+  outline: 3px solid rgba(10, 132, 255, 0.55);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1125px) {
+  body[data-page="library"] .library-page-grid {
+    gap: 40px 28px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 765px) {
+  body[data-page="library"] .library-page-header {
+    padding-top: 88px;
+  }
+
+  body[data-page="library"] .library-page-header h1 {
+    font-size: clamp(44px, 10vw, 64px);
+  }
+
+  body[data-page="library"] .library-page-header p {
+    font-size: 16px;
+    margin-top: 38px;
+  }
+
+  body[data-page="library"] .library-search-pill {
+    margin-top: 50px;
+  }
+
+  body[data-page="library"] .library-results {
+    margin-top: 82px;
+  }
+
+  body[data-page="library"] .library-page-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 540px) {
+  body[data-page="library"] {
+    --library-page-pad: 21px;
+  }
+
+  body[data-page="library"] .library-page {
+    padding-bottom: 96px;
+  }
+
+  body[data-page="library"] .library-back {
+    padding-top: 18px;
+  }
+
+  body[data-page="library"] .library-back a {
+    font-size: 12px;
+  }
+
+  body[data-page="library"] .library-page-header {
+    padding-top: 62px;
+  }
+
+  body[data-page="library"] .library-page-header h1 {
+    font-size: clamp(38px, 11vw, 48px);
+  }
+
+  body[data-page="library"] .library-page-header p {
+    font-size: 14px;
+    line-height: 1.45;
+    margin-top: 28px;
+  }
+
+  body[data-page="library"] .library-search-pill {
+    height: 40px;
+    margin-top: 38px;
+    width: 100%;
+  }
+
+  body[data-page="library"] .library-results {
+    margin-top: 62px;
+  }
+
+  body[data-page="library"] .library-page-grid {
+    gap: 28px 16px;
+  }
+
+  body[data-page="library"] .design-card-label {
+    left: 12px;
+    top: 26px;
+  }
+
+  body[data-page="library"] .design-card-label strong,
+  body[data-page="library"] .design-card-label span:last-child {
+    font-size: 11px;
+    line-height: 11px;
+  }
+
+  body[data-page="library"] .design-card-mark {
+    height: 9px;
+    width: 8px;
+  }
+
+  body[data-page="library"] .design-card-mark::after {
+    height: 4px;
+    left: 2px;
+    top: 2px;
+    width: 4px;
+  }
+
+  body[data-page="library"] .article-short {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-page="library"] *,
+  body[data-page="library"] *::before,
+  body[data-page="library"] *::after {
+    transition-duration: 0.01ms !important;
+  }
+
+  body[data-page="library"] .library-page-grid .article-card:hover,
+  body[data-page="library"] .library-page-grid .article-card:focus-within,
+  body[data-page="library"] .library-page-grid .article-card:hover .article-cover-link,
+  body[data-page="library"] .library-page-grid .article-card:focus-within .article-cover-link,
+  body[data-page="library"] .library-page-grid .article-card:hover .article-meta-row,
+  body[data-page="library"] .library-page-grid .article-card:focus-within .article-meta-row {
+    filter: none !important;
+    transform: none !important;
+  }
+}

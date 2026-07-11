@@ -1,0 +1,4 @@
+{
+  "name": "Agent Librairy",
+  "description": "The agents directory is the core execution engine of the AI Lean Factory. It contains a suite of specialized, self-contained Python packages that perform discrete tasks in the app generation and validation pipeline."
+}

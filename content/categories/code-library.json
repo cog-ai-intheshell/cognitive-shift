@@ -1,0 +1,4 @@
+{
+  "name": "Code Library",
+  "description": "The Code directory houses reusable code components (Python and Swift) packaged as self-contained \"blocks,\" as well as local web UIs for exercising and testing these blocks."
+}

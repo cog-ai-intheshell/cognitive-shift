@@ -1,0 +1,4 @@
+{
+  "name": "MCP Library",
+  "description": "The MCP (Model Context Protocol) library houses shared servers and tools designed to be called by autonomous agents (such as Codex or Claude). Each subdirectory represents a standalone MCP server with its own operational bounds, run instructions, and internal state management."
+}

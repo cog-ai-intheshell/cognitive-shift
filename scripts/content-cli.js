@@ -24,7 +24,7 @@ const limits = {
   category: {
     slug: 40,
     name: 28,
-    description: 220
+    description: 500
   }
 };
 

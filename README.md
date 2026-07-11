@@ -157,7 +157,7 @@ Limites:
 | --- | --- | ---: |
 | slug de categorie | oui | 40 caracteres |
 | `name` | oui | 28 caracteres |
-| `description` | oui | 220 caracteres |
+| `description` | oui | 500 caracteres |
 
 ## Structure generee
 

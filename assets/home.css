@@ -8,6 +8,14 @@ body[data-page="home"] {
   --home-surface: #f2f2f4;
 }
 
+html[data-theme="dark"] body[data-page="home"] {
+  --home-ink: #f5f5f7;
+  --home-muted: #a1a1a6;
+  --home-line: #3a3a3c;
+  --home-search-surface: #2c2c2e;
+  --home-surface: #1c1c1e;
+}
+
 body[data-page="home"] .hero-update-button {
   align-items: center;
   background: var(--color-blue);
@@ -332,6 +340,35 @@ body[data-page="home"] .site-footer-meta {
 body[data-page="home"] :focus-visible {
   outline: 3px solid rgba(10, 132, 255, 0.55);
   outline-offset: 3px;
+}
+
+html[data-theme="dark"] body[data-page="home"] .library-toolbar {
+  background: rgba(25, 25, 25, 0.92);
+}
+
+html[data-theme="dark"] body[data-page="home"] .category-nav a {
+  color: #a1a1a6;
+}
+
+html[data-theme="dark"] body[data-page="home"] .category-nav a:hover,
+html[data-theme="dark"] body[data-page="home"] .category-nav a:focus-visible,
+html[data-theme="dark"] body[data-page="home"] .category-nav a.is-active {
+  background: #f5f5f7;
+  color: #050505;
+}
+
+html[data-theme="dark"] body[data-page="home"] .library-toolbar .search-pill:focus-within {
+  background: #1c1c1e;
+  border-color: #636366;
+}
+
+html[data-theme="dark"] body[data-page="home"] .site-footer-mark {
+  background: #f5f5f7;
+  color: #050505;
+}
+
+html[data-theme="dark"] body[data-page="home"] .site-footer-meta {
+  border-color: #3a3a3c;
 }
 
 @media (max-width: 980px) {

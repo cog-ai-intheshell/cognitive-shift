@@ -360,6 +360,7 @@
     const emptyEl = document.getElementById("updates-empty");
     const searchInput = document.getElementById("updates-search-input");
     const searchClear = document.querySelector(".updates-search-clear");
+    const updatesToolbar = document.querySelector(".updates-toolbar");
     const filterButtons = Array.from(document.querySelectorAll("[data-update-filter]"));
     const libraryNames = new Map(
       getDesignCategories()
@@ -374,13 +375,19 @@
       "ios-ready"
     ];
     const updateGroups = [
-      { id: "updates-17-jun", date: "17 Jun", title: "This week", count: 10 },
-      { id: "updates-10-jun", date: "10 Jun", title: "Previous week", count: 8 },
-      { id: "updates-03-jun", date: "03 Jun", title: "Earlier", count: 7 }
+      { id: "updates-17-jun", iso: "2026-06-17", date: "17 Jun", title: "This week", count: 25 },
+      { id: "updates-10-jun", iso: "2026-06-10", date: "10 Jun", title: "Previous week", count: 12 },
+      { id: "updates-03-jun", iso: "2026-06-03", date: "03 Jun", title: "Early June", count: 10 },
+      { id: "updates-27-may", iso: "2026-05-27", date: "27 May", title: "Late May", count: 8 },
+      { id: "updates-20-may", iso: "2026-05-20", date: "20 May", title: "May updates", count: 7 },
+      { id: "updates-13-may", iso: "2026-05-13", date: "13 May", title: "Mid May", count: 6 },
+      { id: "updates-06-may", iso: "2026-05-06", date: "06 May", title: "Early May", count: 5 },
+      { id: "updates-29-apr", iso: "2026-04-29", date: "29 Apr", title: "April archive", count: 4 }
     ];
+    const publishedGroups = updateGroups.filter((group) => group.count > 0);
     let activeFilter = "all";
 
-    groupsEl.innerHTML = updateGroups.map((group, groupIndex) => {
+    groupsEl.innerHTML = publishedGroups.map((group, groupIndex) => {
       const cards = Array.from({ length: group.count }, (_, cardIndex) => {
         const categorySlug = categorySequence[(groupIndex * 2 + cardIndex) % categorySequence.length];
         const categoryName = libraryNames.get(categorySlug) || "Library";
@@ -398,9 +405,39 @@
       `;
     }).join("");
 
-    historyNav.innerHTML = updateGroups.map((group, index) => `
-      <a class="${index === 0 ? "is-active" : ""}" href="#${escapeAttribute(group.id)}" data-history-target="${escapeAttribute(group.id)}">${escapeHtml(group.date)}</a>
-    `).join("");
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const historyTicks = [];
+    let previousMonth = "";
+
+    publishedGroups.forEach((group) => {
+      const currentDate = new Date(`${group.iso}T00:00:00Z`);
+      const monthKey = group.iso.slice(0, 7);
+      const monthLabel = `${monthNames[currentDate.getUTCMonth()]} ${currentDate.getUTCFullYear()}`;
+
+      if (monthKey !== previousMonth) {
+        historyTicks.push(`
+          <span class="updates-history-tick is-month" aria-label="${escapeAttribute(monthLabel)}">
+            <span class="updates-history-ruler" aria-hidden="true"></span>
+            <span class="updates-history-label">${escapeHtml(monthLabel)}</span>
+          </span>
+        `);
+        previousMonth = monthKey;
+      }
+
+      historyTicks.push(`
+        <a class="updates-history-tick is-push has-update-group${group === publishedGroups[0] ? " is-active" : ""}" href="#${escapeAttribute(group.id)}" data-history-target="${escapeAttribute(group.id)}" data-history-date="${escapeAttribute(group.iso)}" aria-label="${escapeAttribute(group.date)}">
+          <span class="updates-history-ruler" aria-hidden="true"></span>
+          <span class="updates-history-label">${escapeHtml(group.date)}</span>
+        </a>
+      `);
+    });
+
+    historyNav.innerHTML = historyTicks.join("");
+    historyNav.style.setProperty("--history-tick-count", String(historyTicks.length));
+    const historyPanel = historyNav.closest(".updates-history");
+    historyPanel.style.setProperty("--history-tick-count", String(historyTicks.length));
+    historyPanel.style.setProperty("--history-height", `${Math.max(150, historyTicks.length * 18)}px`);
+    const historyCurrent = document.getElementById("updates-history-current");
 
     const syncFilters = () => {
       filterButtons.forEach((button) => {
@@ -418,7 +455,30 @@
         if (group.getBoundingClientRect().top <= 150) activeId = group.id;
       });
       historyNav.querySelectorAll("[data-history-target]").forEach((link) => {
-        link.classList.toggle("is-active", link.dataset.historyTarget === activeId);
+        const isActive = link.dataset.historyTarget === activeId;
+        link.classList.toggle("is-active", isActive);
+        if (isActive) {
+          link.setAttribute("aria-current", "date");
+          historyCurrent.textContent = link.textContent.trim();
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    const syncHistoryVisibility = () => {
+      const toolbarIsPinned = updatesToolbar && updatesToolbar.getBoundingClientRect().top <= 1;
+      historyPanel.classList.toggle("is-visible", Boolean(toolbarIsPinned));
+      historyPanel.setAttribute("aria-hidden", String(!toolbarIsPinned));
+    };
+
+    let historyFrame = 0;
+    const scheduleHistoryUpdate = () => {
+      if (historyFrame) return;
+      historyFrame = window.requestAnimationFrame(() => {
+        historyFrame = 0;
+        updateActiveHistory();
+        syncHistoryVisibility();
       });
     };
 
@@ -438,7 +498,10 @@
         group.hidden = groupVisible === 0;
         totalVisible += groupVisible;
         const historyLink = historyNav.querySelector(`[data-history-target="${group.id}"]`);
-        if (historyLink) historyLink.hidden = groupVisible === 0;
+        if (historyLink) {
+          historyLink.classList.toggle("is-unavailable", groupVisible === 0);
+          historyLink.setAttribute("aria-disabled", String(groupVisible === 0));
+        }
       });
 
       emptyEl.hidden = totalVisible !== 0;
@@ -465,12 +528,17 @@
       link.addEventListener("click", (event) => {
         event.preventDefault();
         const target = document.getElementById(link.dataset.historyTarget);
-        if (target && !target.hidden) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (target && !target.hidden) {
+          target.scrollIntoView({ behavior: "auto", block: "start" });
+          updateActiveHistory();
+        }
       });
     });
 
-    window.addEventListener("scroll", updateActiveHistory, { passive: true });
+    window.addEventListener("scroll", scheduleHistoryUpdate, { passive: true });
+    window.addEventListener("resize", scheduleHistoryUpdate, { passive: true });
     applyFilters();
+    syncHistoryVisibility();
   }
 
   function renderUpdateCard({ categorySlug, categoryName, date }, index) {

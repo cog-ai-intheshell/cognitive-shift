@@ -284,84 +284,113 @@ body[data-page="updates"] .updates-empty {
 }
 
 body[data-page="updates"] .updates-history {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid #e2e2e4;
-  border-radius: 18px;
-  padding: 14px 12px;
+  height: min(72vh, var(--history-height, 610px));
+  left: 24px;
+  opacity: 0;
+  padding: 0;
+  pointer-events: none;
   position: fixed;
-  right: 18px;
+  right: auto;
   top: 50%;
-  transform: translateY(-50%);
-  width: 98px;
+  transform: translate(-8px, -50%);
+  transition: opacity 320ms ease, transform 360ms cubic-bezier(0.2, 0.75, 0.25, 1), visibility 0s linear 360ms;
+  visibility: hidden;
+  width: 76px;
   z-index: 55;
 }
 
+body[data-page="updates"] .updates-history.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(0, -50%);
+  transition-delay: 0s;
+  visibility: visible;
+}
+
 body[data-page="updates"] .updates-history-title {
-  color: var(--updates-muted);
-  display: block;
-  font-size: 10px;
-  font-weight: 650;
-  letter-spacing: 0.08em;
-  margin: 0 0 12px 13px;
-  text-transform: uppercase;
+  display: none;
 }
 
 body[data-page="updates"] .updates-history nav {
   display: grid;
-  gap: 9px;
+  grid-template-rows: repeat(var(--history-tick-count, 78), minmax(0, 1fr));
+  height: 100%;
   position: relative;
 }
 
-body[data-page="updates"] .updates-history nav::before {
-  background: #d2d2d5;
-  bottom: 10px;
-  content: "";
-  left: 5px;
-  position: absolute;
-  top: 10px;
-  width: 1px;
-}
-
-body[data-page="updates"] .updates-history a {
-  align-items: center;
-  color: #68686d;
-  display: grid;
-  font-size: 11px;
-  gap: 8px;
-  grid-template-columns: 11px 1fr;
-  line-height: 1.2;
-  padding: 5px 0;
-  position: relative;
-}
-
-body[data-page="updates"] .updates-history a[hidden] {
+body[data-page="updates"] .updates-history nav::before,
+body[data-page="updates"] .updates-history nav::after {
   display: none;
 }
 
-body[data-page="updates"] .updates-history a::before {
-  background: #fff;
-  border: 1px solid #aaaab0;
-  border-radius: 50%;
-  content: "";
-  height: 7px;
-  justify-self: center;
+body[data-page="updates"] .updates-history-tick {
+  align-items: center;
+  display: flex;
+  min-height: 0;
+  padding: 0;
   position: relative;
-  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
-  width: 7px;
-  z-index: 1;
+}
+
+body[data-page="updates"] a.updates-history-tick {
+  cursor: pointer;
+}
+
+body[data-page="updates"] .updates-history-ruler {
+  background: #a9a9ad;
+  display: block;
+  height: 3px;
+  transition: background-color 160ms ease, opacity 160ms ease, width 180ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  width: 12px;
+}
+
+body[data-page="updates"] .updates-history-tick.is-month .updates-history-ruler {
+  background: #717176;
+  width: 40px;
+}
+
+body[data-page="updates"] .updates-history-label {
+  background: #191919;
+  border-radius: 6px;
+  color: #f5f5f7;
+  font-size: 10px;
+  left: 58px;
+  line-height: 1;
+  opacity: 0;
+  padding: 6px 7px;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-4px);
+  transition: opacity 140ms ease, transform 140ms ease;
+  white-space: nowrap;
+  z-index: 4;
+}
+
+body[data-page="updates"] .updates-history-tick:hover .updates-history-label,
+body[data-page="updates"] .updates-history-tick:focus-visible .updates-history-label {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 body[data-page="updates"] .updates-history a:hover,
 body[data-page="updates"] .updates-history a:focus-visible,
 body[data-page="updates"] .updates-history a.is-active {
-  color: var(--color-blue);
   text-decoration: none;
 }
 
-body[data-page="updates"] .updates-history a.is-active::before {
+body[data-page="updates"] .updates-history a.is-active .updates-history-ruler {
+  background: #191919;
+  width: 52px;
+}
+
+body[data-page="updates"] .updates-history a:hover .updates-history-ruler,
+body[data-page="updates"] .updates-history a:focus-visible .updates-history-ruler {
   background: var(--color-blue);
-  border-color: var(--color-blue);
-  transform: scale(1.25);
+  width: 52px;
+}
+
+body[data-page="updates"] .updates-history a.is-unavailable {
+  opacity: 0.32;
+  pointer-events: none;
 }
 
 body[data-page="updates"] :focus-visible {
@@ -369,10 +398,66 @@ body[data-page="updates"] :focus-visible {
   outline-offset: 3px;
 }
 
+html[data-theme="dark"] body[data-page="updates"] {
+  --updates-ink: #f5f5f7;
+  --updates-muted: #a1a1a6;
+  --updates-soft: #2c2c2e;
+}
+
+html[data-theme="dark"] body[data-page="updates"] .updates-back a {
+  color: var(--color-text);
+}
+
+html[data-theme="dark"] body[data-page="updates"] .updates-toolbar {
+  background: rgba(25, 25, 25, 0.94);
+}
+
+html[data-theme="dark"] body[data-page="updates"] .updates-filters button {
+  color: #a1a1a6;
+}
+
+html[data-theme="dark"] body[data-page="updates"] .updates-filters button:hover,
+html[data-theme="dark"] body[data-page="updates"] .updates-filters button:focus-visible,
+html[data-theme="dark"] body[data-page="updates"] .updates-filters button.is-active {
+  background: #f5f5f7;
+  color: #050505;
+}
+
+html[data-theme="dark"] body[data-page="updates"] .updates-search:focus-within {
+  background: #1c1c1e;
+  border-color: #636366;
+}
+
+html[data-theme="dark"] body[data-page="updates"] .updates-search-clear {
+  color: var(--color-text);
+}
+
+html[data-theme="dark"] body[data-page="updates"] .updates-history-ruler {
+  background: #525255;
+}
+
+html[data-theme="dark"] body[data-page="updates"] .updates-history {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+html[data-theme="dark"] body[data-page="updates"] .updates-history-tick.is-month .updates-history-ruler {
+  background: #77777b;
+}
+
+html[data-theme="dark"] body[data-page="updates"] .updates-history-tick.is-month .updates-history-label {
+  color: #191919;
+}
+
+html[data-theme="dark"] body[data-page="updates"] .updates-history a.is-active .updates-history-ruler {
+  background: #ffffff;
+}
+
 @media (max-width: 1400px) {
   body[data-page="updates"] .updates-content {
-    margin-left: 0;
-    margin-right: 120px;
+    margin-left: 92px;
+    margin-right: 0;
     max-width: none;
   }
 }
@@ -422,13 +507,21 @@ body[data-page="updates"] :focus-visible {
   }
 
   body[data-page="updates"] .updates-history {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid #e2e2e4;
+    border-radius: 18px;
     bottom: 14px;
+    height: auto;
     left: 50%;
     padding: 8px 12px;
     right: auto;
     top: auto;
-    transform: translateX(-50%);
+    transform: translate(-50%, 8px);
     width: min(calc(100vw - 28px), 420px);
+  }
+
+  body[data-page="updates"] .updates-history.is-visible {
+    transform: translate(-50%, 0);
   }
 
   body[data-page="updates"] .updates-history-title {
@@ -436,25 +529,75 @@ body[data-page="updates"] :focus-visible {
   }
 
   body[data-page="updates"] .updates-history nav {
+    align-items: center;
     display: flex;
-    gap: 6px;
-    justify-content: space-between;
+    gap: 7px;
+    height: 22px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
 
-  body[data-page="updates"] .updates-history nav::before {
-    bottom: auto;
-    height: 1px;
-    left: 8px;
-    right: 8px;
-    top: 50%;
-    width: auto;
+  body[data-page="updates"] .updates-history-tick {
+    flex: 0 0 auto;
+    height: 22px;
+    justify-content: center;
+    padding: 0 2px;
   }
 
-  body[data-page="updates"] .updates-history a {
-    background: rgba(255, 255, 255, 0.94);
-    gap: 5px;
-    grid-template-columns: 9px 1fr;
-    padding: 5px 4px;
+  body[data-page="updates"] .updates-history nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  body[data-page="updates"] .updates-history nav::before,
+  body[data-page="updates"] .updates-history nav::after {
+    display: none;
+  }
+
+  body[data-page="updates"] .updates-history-ruler {
+    align-self: center;
+    background: #aeb0b4;
+    height: 8px;
+    width: 3px;
+  }
+
+  body[data-page="updates"] .updates-history-tick.is-month .updates-history-ruler {
+    height: 18px;
+    width: 3px;
+  }
+
+  body[data-page="updates"] .updates-history-label {
+    display: none;
+  }
+
+  body[data-page="updates"] .updates-history-ruler::before,
+  body[data-page="updates"] .updates-history-ruler::after {
+    display: none;
+  }
+
+  body[data-page="updates"] .updates-history a.is-active .updates-history-ruler {
+    background: #191919;
+    height: 22px;
+    width: 3px;
+  }
+
+  body[data-page="updates"] .updates-history a:hover .updates-history-ruler,
+  body[data-page="updates"] .updates-history a:focus-visible .updates-history-ruler {
+    height: 22px;
+    width: 3px;
+  }
+
+  html[data-theme="dark"] body[data-page="updates"] .updates-history {
+    background: rgba(28, 28, 30, 0.94);
+    border-color: #3a3a3c;
+  }
+
+  html[data-theme="dark"] body[data-page="updates"] .updates-history-ruler {
+    background: #636366;
+  }
+
+  html[data-theme="dark"] body[data-page="updates"] .updates-history a.is-active .updates-history-ruler {
+    background: #ffffff;
   }
 
   body[data-page="updates"] .design-card-label {
